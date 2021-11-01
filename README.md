@@ -1,0 +1,1 @@
+# Practica1_Tipologia_y_ciclo_de_vida-de-los-datos
