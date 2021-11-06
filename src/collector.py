@@ -7,6 +7,7 @@ import urllib.request
 import re
 from selenium import webdriver
 import time
+import numpy as np
 import pandas as pd
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -53,14 +54,6 @@ def main():
     secondary_window_handler = None
     secondary_window_handler = None
     tertiary_window_handler = None
-
-    # Casi pero no acaba de funcionar
-    # driver.set_context("chrome")
-    # tmp = driver.find_element(by=By.TAG_NAME, value="body")
-    # for _ in range(6):
-    #     tmp.send_keys(Keys.COMMAND + '-')
-    #     time.sleep(2)
-    # driver.set_context("content")
 
     action = ActionChains(driver)
     action.move_to_element(tmp).perform()
@@ -118,13 +111,6 @@ def main():
     #     tmp.send_keys(Keys.ARROW_RIGHT)
 
 
-
-    # WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, "//*[@id='list-view']/tbody/tr")))
-
-    # sleep for 30s
-    # // *[ @ id = "ptYCol"]
-
-    # results = driver.find_elements_by_xpath("")
     results = driver.find_elements(by=By.TAG_NAME, value="table")
 
     print('Number of results', len(results))
@@ -169,6 +155,10 @@ def main():
     time.sleep(5)
     driver.quit()
 
+    # Clean the output dataframe
+    year_cols = [x for x in final_df.columns if "GEO" not in x]
+    final_df[year_cols] = final_df[year_cols].astype(str).applymap(lambda x: re.sub(r'[^0-9^\-\.]+', '', x)).replace('', np.nan).astype('float64')
+    # final_df[year_cols].astype(str).applymap(lambda x: re.sub(r'[^0-9^\-\.]+', '', x)).replace('', np.float64(0)).astype('float64')
     # save the final dataframe
     final_df.to_csv("../csv/electricity_prices_for_household_consumers.csv")
 
@@ -178,8 +168,57 @@ def main():
     # except Exception as e:
     #     print(f"Error ----- {e}")
 
+def main2():
+    input_web_site = "https://www.eia.gov/totalenergy/data/annual/showtext.php?t=ptb0810"
+    response = requests.get(input_web_site)
+    # response = requests.post(input_web_site, data=paramsValues, headers=headersValues)
+    soup = BeautifulSoup(response.text, "html.parser")
+    table = soup.find('table')
+
+    priceList = []
+    currentIndex = 0
+    table_tr = table.findAll("tr")
+    for row in table_tr[3:len(table_tr)-6]:
+        cells = row.findAll('td')
+        # if (currentIndex > 0):
+            # This is because exists rowspan, if not use the previous category
+        year = cells[0].find(text=True)
+        nominal = cells[1].find(text=True)
+        real = cells[2].find(text=True)
+
+
+        element = [year, nominal, real]
+        priceList.append(element)
+        # currentIndex = currentIndex + 1
+
+
+    print(table.text)
+
+def generate_graph(input_csv):
+    input_df = pd.read_csv(input_csv, index_col=0)
+    year_cols = [x for x in input_df.columns if "GEO" not in x]
+    input_df[year_cols] = input_df[year_cols].replace(np.nan, np.float64(0))
+
+    spain_values = input_df.loc[input_df["GEO"] == "Spain"]
+    input_df.loc[input_df.index.max()+1] = input_df[year_cols].mean().replace(np.nan, "European-Mean")
+    input_df.iloc[input_df.index.max(), input_df.columns.get_loc('GEO')] = "European-Mean"
+
+    mean_values = input_df.loc[input_df["GEO"] == "European-Mean"]
+
+    spain_values = spain_values.append(mean_values)
+    plot_values = spain_values[year_cols].T
+    plot_values.columns = ["Spain", "European-Mean"]
+
+    plot_values.plot(kind="bar")
+    plot_values["European-Mean"].plot(kind="line")
+
+    # Media de precio por año en toda euro representa la tendencia global europa
+    # un par diferenciados por paises
+    print("Chao")
 
 
 if __name__ == "__main__":
     print('Ejecutando como programa principal')
-    main()
+    # main()
+    # main2()
+    generate_graph("../csv/electricity_prices_for_household_consumers.csv")
