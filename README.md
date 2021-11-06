@@ -1,1 +1,14 @@
-# Practica 1 - Tipología y ciclo de vida de los datos
+# Practica 1 - Web Scraping
+
+## Descripción
+
+## Miembros del equipo
+La práctica ha sido realizada de manera individual por Sebastian Maya Hernández.
+
+## Ficheros del código fuente
+
+## Recursos
+1. Subirats, L., Calvo, M. (2019). Web Scraping. Editorial UOC.
+2. Masip, D. (2010). El lenguaje Python. Editorial UOC.
+3. Lawson, R. (2015). _Web Scraping with Python_. Packt Publishing Ltd. Chapter 2. Scraping the Data.
+4. Selenium Documentation — Selenium 4.0.0 documentation
