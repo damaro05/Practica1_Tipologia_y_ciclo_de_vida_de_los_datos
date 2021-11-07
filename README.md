@@ -45,6 +45,7 @@ Si desea generar gráficos añada la opción **--show_graphs**
     python3 src/dataset_generator.py --web_endpoint "http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=nrg_pc_204" --output_csv_file "../csv/output_dataset.csv" --show_graphs
 
 ## DOI de Zenodo
+Sebastian Maya. (2021). Evolución de precios de la electricidad en Europa (0.0.1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.5652062
 
 ## Notas
 Fíjese que en la ejecución pasamos los parametros junto a la url de la web, en este caso el dataset nrg_pc_204 que corresponde a los precios de la electricidad para los consumidores domésticos pero podríamos cambiar el valor de este parámetro y generar un dataset para otro tipo concreto de datos por ejemplo, el precio de la electricidad para los consumidores no domésticos o industriales.
