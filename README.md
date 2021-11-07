@@ -48,7 +48,7 @@ Si desea generar gráficos añada la opción **--show_graphs**
 Sebastian Maya. (2021). Evolución de precios de la electricidad en Europa (0.0.1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.5652062
 
 ## Notas
-Fíjese que en la ejecución pasamos los parametros junto a la url de la web, en este caso el dataset nrg_pc_204 que corresponde a los precios de la electricidad para los consumidores domésticos pero podríamos cambiar el valor de este parámetro y generar un dataset para otro tipo concreto de datos por ejemplo, el precio de la electricidad para los consumidores no domésticos o industriales.
+Fíjese que en la ejecución pasamos los parámetros junto a la url de la web, en este caso el dataset nrg_pc_204 que corresponde a los precios de la electricidad para los consumidores domésticos pero podríamos cambiar el valor de este parámetro y generar un dataset para otro tipo concreto de datos por ejemplo, el precio de la electricidad para los consumidores no domésticos o industriales.
 
 ## Recursos
 1. Subirats, L., Calvo, M. (2019). Web Scraping. Editorial UOC.
