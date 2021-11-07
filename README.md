@@ -2,11 +2,11 @@
 
 ## Descripción
 Este repositorio contiene la práctica 1 de la asignatura Tipología y ciclo de vida de los datos del Máster en Ciencia de Datos de la UOC. Se han aplicado tecnicas de web scraping en Python para generar un dataset con los precios de la electricidad en Europa.
-El repositorio está compuesto por
+El repositorio está compuesto por:
 * **src:** Carpeta con el código fuente.
 * **doc:** Contiene el documento con las respuestas de la actividad y los graficos generados.
 * **csv:** Contiene el archivo final del dataset.
-* **requerimientos.txt:** Archivo con las dependencias del proyecto
+* **requerimientos.txt:** Archivo con las dependencias del proyecto.
 
 ## Miembros del equipo
 La práctica ha sido realizada de manera individual por Sebastian Maya Hernández.
